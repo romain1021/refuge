@@ -1,4 +1,4 @@
-# Site refuge d'animaux �
+# Site refuge d'animaux
 
 Ce dépôt contient les ressources liées au projet de gestion et suivi des adoptions d’animaux.
 
