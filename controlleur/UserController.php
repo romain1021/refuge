@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require_once 'model/User.php';
+require_once 'model/user.php';
 session_start();
 
 class UserController{
@@ -9,7 +9,7 @@ class UserController{
     public function __construct(){
         $this->user = new User(); 
     }
-    
+
     public function login(string $username, string $password){
         
         $isValid = $this->user->testUser($username, $password);
