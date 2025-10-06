@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 $BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
 class Animaux
 {
@@ -12,12 +11,12 @@ class Animaux
 
     public function __construct(array $data = [])
     {
-        if (isset($data['id'])) $this->id = (int)$data['id'];
-        if (isset($data['type'])) $this->type = (string)$data['type'];
-        if (isset($data['nom'])) $this->nom = (string)$data['nom'];
-        if (isset($data['age'])) $this->age = (string)$data['age'];
-        if (isset($data['description'])) $this->description = (string)$data['description'];
-        if (isset($data['statut'])) $this->statut = (int)$data['statut'];
+        if (isset($data['id'])) $this->id =$data['id'];
+        if (isset($data['type'])) $this->type = $data['type'];
+        if (isset($data['nom'])) $this->nom = $data['nom'];
+        if (isset($data['age'])) $this->age = $data['age'];
+        if (isset($data['description'])) $this->description = $data['description'];
+        if (isset($data['statut'])) $this->statut = $data['statut'];
     }
 
     // id
@@ -100,7 +99,7 @@ class Animaux
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function addAnimal($type, $nom, $age, $description, $statut){
+    function createAnimal($type, $nom, $age, $description, $statut){
         global $BaseDeDonnees;
         $pdo = new PDO($BaseDeDonnees);
         $stmt = $pdo->prepare("INSERT INTO animaux (type, nom, age, description, statut) VALUES (:type, :nom, :age, :description, :statut)");

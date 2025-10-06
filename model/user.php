@@ -1,10 +1,4 @@
 <?php
-declare(strict_types=1);
-
-/**
- * Classe User minimale avec getters et setters.
- */
-
 $BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
 class User
 {
@@ -112,7 +106,7 @@ class User
     }
 
     function testUser($username, $password){
-        
+
         $conn = new PDO($BaseDeDonnees);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
