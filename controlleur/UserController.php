@@ -10,7 +10,7 @@ class UserController{
         $this->user = new User(); 
     }
 
-    public function login(string $username, string $password){
+    function login(string $username, string $password){
         
         $isValid = $this->user->testUser($username, $password);
 
