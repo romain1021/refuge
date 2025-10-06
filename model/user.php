@@ -112,6 +112,7 @@ class User
     }
 
     function testUser($username, $password){
+        
         $conn = new PDO($BaseDeDonnees);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
