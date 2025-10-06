@@ -112,7 +112,7 @@ class User
     }
 
     function testUser($username, $password){
-        $conn = new PDO("mysql:host=localhost;dbname=CoffreFortNum", "root", "");
+        $conn = new PDO($BaseDeDonnees);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $stmt = $conn->prepare("SELECT id, password FROM User WHERE username = :username");
@@ -126,5 +126,31 @@ class User
             } else {
                 return false;
             }
+    }
+
+    function register($nom, $prenom, $email, $password, $adresse){
+        $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            $stmt = $conn->prepare("INSERT INTO User (nom, prenom, email, password, adresse) VALUES (:nom, :prenom, :email, :password, :adresse)");
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $hashed_password);
+            $stmt->bindParam(':adresse', $adresse);
+            
+            return $stmt->execute();
+    }
+
+    function fetchUserData($id){
+        $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $conn->prepare("SELECT id, nom, prenom, email, adresse, statut FROM User WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
