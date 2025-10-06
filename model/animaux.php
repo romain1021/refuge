@@ -20,24 +20,24 @@ class Animaux
     }
 
     // id
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
     }
 
     // type
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type)
     {
         $this->type = $type;
         return $this;
@@ -49,7 +49,7 @@ class Animaux
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
         return $this;
@@ -61,31 +61,31 @@ class Animaux
         return $this->age;
     }
 
-    public function setAge(string $age): self
+    public function setAge(string $age)
     {
         $this->age = $age;
         return $this;
     }
 
     // description
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $description)
     {
         $this->description = $description;
         return $this;
     }
 
     // statut
-    public function getStatut(): int
+    public function getStatut()
     {
         return $this->statut;
     }
 
-    public function setStatut(int $statut): self
+    public function setStatut(int $statut)
     {
         $this->statut = $statut;
         return $this;
