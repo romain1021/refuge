@@ -113,7 +113,7 @@ class Animaux
         return $pdo->lastInsertId();
     }
 
-    function getAllAnimalAvailables(){
+    function getAllAnimalAvailable(){
         global $BaseDeDonnees;
         $pdo = new PDO($BaseDeDonnees);
         $stmt = $pdo->query("SELECT * FROM animaux WHERE statut = 0");
