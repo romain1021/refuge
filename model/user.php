@@ -1,10 +1,4 @@
 <?php
-declare(strict_types=1);
-
-/**
- * Classe User minimale avec getters et setters.
- */
-
 $BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
 class User
 {
@@ -18,101 +12,101 @@ class User
 
     public function __construct(array $data = [])
     {
-        if (isset($data['id'])) $this->id = (int)$data['id'];
-        if (isset($data['nom'])) $this->nom = (string)$data['nom'];
-        if (isset($data['prenom'])) $this->prenom = (string)$data['prenom'];
-        if (isset($data['email'])) $this->email = (string)$data['email'];
-        if (isset($data['password'])) $this->password = (string)$data['password'];
-        if (isset($data['adresse'])) $this->adresse = (string)$data['adresse'];
-        if (isset($data['statut'])) $this->statut = (int)$data['statut'];
+        if (isset($data['id'])) $this->id = $data['id'];
+        if (isset($data['nom'])) $this->nom = $data['nom'];
+        if (isset($data['prenom'])) $this->prenom = $data['prenom'];
+        if (isset($data['email'])) $this->email = $data['email'];
+        if (isset($data['password'])) $this->password = $data['password'];
+        if (isset($data['adresse'])) $this->adresse = $data['adresse'];
+        if (isset($data['statut'])) $this->statut = $data['statut'];
     }
 
     // id
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
     }
 
     // nom
-    public function getNom(): string
+    public function getNom()
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
         return $this;
     }
 
     // prenom
-    public function getPrenom(): string
+    public function getPrenom()
     {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setPrenom(string $prenom)
     {
         $this->prenom = $prenom;
         return $this;
     }
 
     // email
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email)
     {
         $this->email = $email;
         return $this;
     }
 
     // password (stocke la valeur fournie)
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
         return $this;
     }
 
     // adresse
-    public function getAdresse(): string
+    public function getAdresse()
     {
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setAdresse(string $adresse)
     {
         $this->adresse = $adresse;
         return $this;
     }
 
     // statut
-    public function getStatut(): int
+    public function getStatut()
     {
         return $this->statut;
     }
 
-    public function setStatut(int $statut): self
+    public function setStatut(int $statut)
     {
         $this->statut = $statut;
         return $this;
     }
 
     function testUser($username, $password){
-        
+
         $conn = new PDO($BaseDeDonnees);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
