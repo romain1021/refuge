@@ -112,11 +112,4 @@ class Animaux
         ]);
         return $pdo->lastInsertId();
     }
-
-    function getAllAnimalAvailable(){
-        global $BaseDeDonnees;
-        $pdo = new PDO($BaseDeDonnees);
-        $stmt = $pdo->query("SELECT * FROM animaux WHERE statut = 0");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }   
 }

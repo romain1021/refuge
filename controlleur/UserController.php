@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once 'model/user.php';
 session_start();
 
@@ -9,29 +10,42 @@ class UserController{
         $this->user = new User(); 
     }
 
-    function login(string $username, string $password){
-        
-        $isValid = $this->user->testUser($username, $password);
+    function login($username, $password){
 
-        if ($isValid) {
-            $userId = $_COOKIE['id_user'];
-
-            if ($userId) {
-                $data = $this->user->fetchUserData($userId);
-                $this->user = new User($data); 
-
-                $_SESSION['id_user'] = $this->user->getId();
-                $_SESSION['statut'] = $this->user->getStatut(); 
-
+        $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $conn->prepare("SELECT id, password FROM User WHERE username = :username");
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result && password_verify($password, $result['password'])) {
+                session_start();
+                $_SESSION['user_id'] = $result['id'];
                 return true;
-            } 
-        }
-
-        return false;
+            } else {
+                return false;
+            }
     }
 
 
+
     function register($nom,$prenom,$email,$password,$adresse){
+
+         $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            $stmt = $conn->prepare("INSERT INTO User (nom, prenom, email, password, adresse) VALUES (:nom, :prenom, :email, :password, :adresse)");
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $hashed_password);
+            $stmt->bindParam(':adresse', $adresse);
+            
+            return $stmt->execute();
         if (empty($nom) || empty($prenom) || empty($email) || empty($password) || empty($adresse)) {
             return false;
         }
@@ -42,11 +56,14 @@ class UserController{
 
     }
     
-    function getUserById(){
-        if (isset($_SESSION['id_user'])) {
-            $data = $this->user->fetchUserData($_SESSION['id_user']);
-            return new User($data);
-        }
+    function fetchUserData($id){
+        $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $conn->prepare("SELECT id, nom, prenom, email, adresse, statut FROM User WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 
