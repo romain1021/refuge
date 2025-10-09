@@ -1,28 +1,43 @@
 <?php
-require_once 'model/animaux.php';
+require_once ('../model/animaux.php'); 
 session_start();
-$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
-class animalController{
-    private animaux $animal;
 
-    function __construct(){
-        $this->animal = new Animaux(); 
-    }
+class AnimalController {
+    private Animaux $animal;
+    private PDO $conn;
     
-    function addAnimal($type, $nom, $age, $description, $statut){
-        if (empty($type)||empty($nom)||empty($age)||empty($description)||empty($statut)){
-            return false;
+    public function __construct() {
+        $BaseDeDonnees = "mysql:host=localhost;dbname=refuge;charset=utf8";
+        $this->conn = new PDO($BaseDeDonnees);
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->animal = new Animaux();
+    }
+
+    function addAnimal($type, $nom, $age, $description, $statut) {
+        if (empty($type) || empty($nom) || empty($age) || empty($description) || empty($statut)) {
+            return false; 
         }
-        return $this->animal->createAnimal($type, $nom, $age, $description, $statut);
-
+        else{
+            $result = $this->conn->prepare("INSERT INTO animaux (type, nom, age, description, statut)VALUES (:type, :nom, :age, :description, :statut)");
+            $result->bindParam(':type', $type);
+            $result->bindParam(':nom', $nom);
+            $result->bindParam(':age', $age);
+            $result->bindParam(':description', $description);
+            $result->bindParam(':statut', $statut);
+            return $result->execute();
+        }
+        
     }
 
-    function editAnimal($id, $type, $nom, $age, $description, $statut){
-        return $this->animal->editAnimal($id,$type,$nom,$age, $description, $statut);
+    function editAnimal($id,$type, $nom, $age, $description, $statut) {
+        $result = $this->conn->prepare("UPDATE animaux SET type = :type, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
+        $result->bindParam(':type',$type);
+        $result->bindParam(':nom',$nom);
+        $result->bindParam(':age',$age);
+        $result->bindParam(':description',$description);
+        $result->bindParam(':statut',$statut);        
+        return $result->execute();
     }
 
-    function changerStatut($id){
-        return $this->animal->changerStatut($id);
-    }
-    
 }
+
