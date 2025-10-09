@@ -23,7 +23,6 @@
     <label>Description :</label><br>
     <textarea name="description" rows="3" cols="30"></textarea><br><br>
 
-
     <input type="submit" value="Ajouter">
 
    
@@ -31,25 +30,4 @@
 </body>
 </html>
 <?php
-require_once('../controller/AnimalController.php');
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['nom'])) {
-
-        $type = $_POST['type'];
-        $nom = $_POST['nom'];
-        $age = $_POST['age'];
-        $description = $_POST['description'];
-
-        $animalController = new AnimalController();
-
-        $registerOK = $animalController->registerAnimal($type, $nom, $age, $description);
-
-        if ($registerOK) {
-            echo "<p style='color:green;'>Animal ajouté avec succès !</p>";
-        } else {
-            echo "<p style='color:red;'>Erreur : impossible d’ajouter l’animal.</p>";
-        }
-    }
-}
 ?>
