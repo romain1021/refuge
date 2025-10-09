@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once 'model/user.php';
 session_start();
-
+$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
 class UserController{
     private User $user;
 
@@ -65,6 +65,21 @@ class UserController{
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    function getAdoptionFromUser($id){
+        $conn = new PDO($BaseDeDonnees);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $conn->prepare("SELECT * FROM adoption WHERE user_id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+            $stmt = $conn->prepare("SELECT * FROM animal WHERE id = :idAnimal");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 }
 
     
