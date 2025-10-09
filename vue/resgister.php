@@ -29,38 +29,26 @@
 </form>
 
 <?php
-// Quand on clique sur "S'inscrire"
-if (isset($_POST['register'])) {
+require_once('../controller/UserController.php');
+if($_SERVER['REQUEST_METHOD']==='POST'){
+    if(isset($_POST['email'])){
 
-    // Connexion à la base de données
-    $conn = new mysqli("localhost", "root", "", "refuge");
+    $nom=$_POST['nom'];
+    $prenom=$_POST['prenom'];
+    $email=$_POST['email'];
+    $adresse=$_POST['adresse'];
+    $password=$_POST['password'];
 
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        echo "Erreur de connexion : " . $conn->connect_error;
+$userController=new UserController();
+
+$registerOK=$userController->register($nom,$prenom,$email,$password,$adresse);
+
+if($registerOK){
+    echo "<p style='color:green;'>Inscription réussie !</p>";
+}else{
+    echo "<p style='color:red;'>Erreur : email déjà utilisé ou données incorrectes.</p>";
+        }
     }
-
-    // Récupérer les valeurs du formulaire
-    $id=$_POST['id'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $adresse = $_POST['adresse'];
-
-    // Ajouter l'utilisateur dans la base
-    $sql = "INSERT INTO user (id ,nom, prenom, email, password, adresse)
-            VALUES ('$id','$nom', '$prenom', '$email', '$password', '$adresse')";
-
-    // Vérifier si l’ajout a fonctionné
-    if ($conn->query($sql) === TRUE) {
-        echo "<p>Inscription réussie </p>";
-    } else {
-        echo "<p>Erreur : " . $conn->error . "</p>";
-    }
-
-    // Fermer la connexion
-    $conn->close();
 }
 ?>
 
