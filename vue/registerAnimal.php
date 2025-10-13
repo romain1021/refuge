@@ -30,7 +30,6 @@
 </body>
 </html>
 <?php
-<<<<<<< HEAD
 require_once('../controlleur/AnimalController.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -52,6 +51,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-=======
->>>>>>> 224653ebac13587dadec11f4d97b868084c01720
 ?>

@@ -91,25 +91,5 @@ class Animaux
         return $this;
     }
 
-    function fetchAnimalData($id){
-        global $BaseDeDonnees;
-        $pdo = new PDO($BaseDeDonnees);
-        $stmt = $pdo->prepare("SELECT * FROM animaux WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 
-    function createAnimal($type, $nom, $age, $description, $statut){
-        global $BaseDeDonnees;
-        $pdo = new PDO($BaseDeDonnees);
-        $stmt = $pdo->prepare("INSERT INTO animaux (type, nom, age, description, statut) VALUES (:type, :nom, :age, :description, :statut)");
-        $stmt->execute([
-            'type' => $type,
-            'nom' => $nom,
-            'age' => $age,
-            'description' => $description,
-            'statut' => $statut
-        ]);
-        return $pdo->lastInsertId();
-    }
 }
