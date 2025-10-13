@@ -33,6 +33,7 @@ class UserController{
 
         if ($result && password_verify($password, $result['password'])) {
             $_SESSION['user_id'] = $result['id'];
+            header('Location: index.php?page=home');
             return true;
         }
 
