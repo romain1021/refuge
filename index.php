@@ -10,7 +10,9 @@ session_start();
 
 if(isset($_GET['page'])){
     if ($_GET['page']=="home"){
+        require_once('vue/deconnection.php');
         require_once('vue/homes.php');
+        require_once('vue/listeAnnimal.php');
     }
 
     if ($_GET['page']=='inscription'){
@@ -37,6 +39,11 @@ if(isset($_GET['page'])){
 
     if ($_GET['page']=='vueProfilAdoptant'){
         require_once('vue/vueProfilAdoptant.php');
+    }
+
+    if ($_GET['page']=='deconnexion'){
+        $userController= new UserController();
+        $userController->logout();
     }
 
     

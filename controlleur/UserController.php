@@ -96,6 +96,11 @@ class UserController{
 
         return ['userData' => $userData, 'adoptions' => $adoptionData];
     }
+
+    public function logout(){
+        session_destroy();
+        header('Location: index.php?page=connexion');
+    }
 }
 
     

@@ -7,11 +7,13 @@ class AnimalController {
     private PDO $conn;
     
     public function __construct() {
-        $BaseDeDonnees = "mysql:host=localhost;dbname=refuge;charset=utf8";
-        $this->conn = new PDO($BaseDeDonnees);
+        $BaseDeDonnees = "mysql:host=localhost;dbname=refuge";
+        $this->conn = new PDO($BaseDeDonnees, "root", "");
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->animal = new Animaux();
     }
+
+
 
     function addAnimal(Animaux $animal) {
         if (empty($animal->getType()) || empty($animal->getNom()) || empty($animal->getAge()) || empty($animal->getDescription()) || empty($animal->getStatut())) {
@@ -60,6 +62,12 @@ class AnimalController {
         $modif->execute();
         return $nouveauStatut;
     }
+
+    function getAllAnnimaux() {
+        $result = $this->conn->prepare("SELECT * FROM animaux");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }   
 
 
 }
