@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-</head>
-<body>
-    <h1>hello world</h1>
-</body>
-</html>
+<link rel="stylesheet" href='style.css'>
+
+<?php
+require_once("controlleur/UserController.php");
+require_once("controlleur/animalController.php");
+require_once("model/animaux.php");
+require_once("model/user.php");
+
+
+if(isset($_GET['action'])){
+    if ($_GET['page']=="home"){
+        require_once('vue/homes.php');
+    }
+
+    if ($_GET['page']=='inscription'){
+
+        require_once('vue/register.php');
+        echo'test';
+    }
+
+    
+}
+
+else{
+   // require("vue/login.php");
+}

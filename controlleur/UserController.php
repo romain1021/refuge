@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require_once ('../model/user.php');
+require_once ('model/user.php');
 session_start();
 
 class UserController{
