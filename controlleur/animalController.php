@@ -1,6 +1,6 @@
 <?php
-require_once ('../model/animaux.php'); 
-session_start();
+require_once ('model/animaux.php'); 
+//session_start();
 
 class AnimalController {
     private Animaux $animal;
