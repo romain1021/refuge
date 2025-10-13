@@ -39,5 +39,24 @@ class AnimalController {
         return $result->execute();
     }
 
+    function changerStatut($id) {
+        $result = $this->conn->prepare("SELECT statut FROM animaux WHERE id = $id");
+        $result->bindParam(':id',$id);
+        $result->execute();
+        $statutActuel = $result->fetchColumn();
+
+        if($statutActuel==1){
+            $nouveauStatut=0;
+        }
+        else{
+            $nouveauStatut=1;
+        }
+
+        $modif=$this->conn->prepare("UPDATE animaux SET statut = :statut WHERE id = :id");
+        $modif->bindParam(':statut', $nouveauStatut);
+        $modif->bindParam(':id', $id);
+        $modif->execute();
+    }
+
 }
 
