@@ -7,7 +7,7 @@ require_once("model/animaux.php");
 require_once("model/user.php");
 
 
-if(isset($_GET['action'])){
+if(isset($_GET['page'])){
     if ($_GET['page']=="home"){
         require_once('vue/homes.php');
     }
@@ -16,6 +16,10 @@ if(isset($_GET['action'])){
 
         require_once('vue/register.php');
         echo'test';
+    }
+
+    if ($_GET['page']=='profil'){
+        require_once('vue/vueProfilAdoptant.php');
     }
 
     
