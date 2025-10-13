@@ -30,7 +30,7 @@
 </body>
 </html>
 <?php
-require_once('../controlleur/AnimalController.php');
+require_once('controlleur/AnimalController.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['nom'])) {

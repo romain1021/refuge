@@ -1,5 +1,5 @@
 <?php
-require_once('/../controlleur/UserController.php');
+require_once('controlleur/UserController.php');
 
 $iduser = $_GET['iduser'];
 

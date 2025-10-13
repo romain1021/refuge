@@ -24,7 +24,7 @@
 </body>
 </html>
 <?php
-require_once('../controlleur/animalControlleur.php');
+require_once('controlleur/animalControlleur.php');
 if($_SERVER['REQUEST_METHOD']==='POST'){
     if(isset($_POST['nom'])){
          $type = $_POST['type'];
