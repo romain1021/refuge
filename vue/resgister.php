@@ -29,7 +29,6 @@
 </form>
 
 <?php
-require_once('controller/UserController.php');
 if($_SERVER['REQUEST_METHOD']==='POST'){
     if(isset($_POST['email'])){
 

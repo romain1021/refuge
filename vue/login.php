@@ -14,7 +14,14 @@
 </html>
     
 <?php
+
+$userController= new UserController();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    login($_POST['email'], $_POST['password']);
+   $loginOK=$userController->login($_POST['email'], $_POST['password']);
+   if($loginOK){    
+       echo "<p style='color:green;'>Connexion réussie !</p>";
+   }else{
+       echo "<p style='color:red;'>Erreur : email ou mot de passe incorrect.</p>";
+   }
 }
 ?>
