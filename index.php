@@ -50,5 +50,7 @@ if(isset($_GET['page'])){
 }
 
 else{
-   $_get=='connexion';
+   $_GET['page']=='connexion';
+   header('Location: index.php?page=connexion');
 }
+
