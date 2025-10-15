@@ -7,7 +7,7 @@
 <body>
 
     <h1>Inscrire un animal</h1>
-    <form method="POST" action="registerAnimal.php">
+    <form method="post" action="registerAnimal.php?page=ajoute_animal">
     <label>Nom :</label><br>
     <input type="text" name="nom" required><br><br>
 
@@ -29,26 +29,4 @@
 
 </body>
 </html>
-<?php
-require_once('controlleur/AnimalController.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['nom'])) {
-
-        $type = $_POST['type'];
-        $nom = $_POST['nom'];
-        $age = $_POST['age'];
-        $description = $_POST['description'];
-
-        $animalController = new AnimalController();
-
-        $registerOK = $animalController->registerAnimal($type, $nom, $age, $description);
-
-        if ($registerOK) {
-            echo "<p style='color:green;'>Animal ajouté avec succès !</p>";
-        } else {
-            echo "<p style='color:red;'>Erreur : impossible d’ajouter l’animal.</p>";
-        }
-    }
-}
-?>

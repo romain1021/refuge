@@ -79,18 +79,32 @@ class UserController{
      * Structure retournée: array of ['adoption_id', 'user_id', 'animal_id', 'adoption_date', 'animal.*']
      */
     function getAdoptionFromUser($id){
-        $conn = new PDO($BaseDeDonnees);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            $stmt = $conn->prepare("SELECT * FROM adoptions WHERE user_id = :id");
-            $stmt->bindParam(':id', $id);
+        $conn = $this->getConnection();
+    // Récupère les adoptions de l'utilisateur
+    $stmt = $conn->prepare("SELECT * FROM adoptions WHERE idAdoptant = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $adoptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = [];
+        foreach ($adoptions as $adoption) {
+            // Récupère l'animal lié à l'adoption
+            $stmt = $conn->prepare("SELECT * FROM animaux WHERE id = :animal_id");
+            $stmt->bindParam(':animal_id', $adoption['idAnimal']);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-            $stmt = $conn->prepare("SELECT * FROM animal WHERE id = :idAnimal");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $animal = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Récupère l'utilisateur (optionnel si besoin d'info complète à chaque entrée)
+            $user = $this->fetchUserData($id);
+
+            // Fusionne les infos dans une seule variable
+            $result[] = [
+                'user' => $user,
+                'adoption' => $adoption,
+                'animal' => $animal
+            ];
+        }
+        return $result;
         }
 
     public function getProfilAdoptant($iduser){
