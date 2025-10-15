@@ -1,12 +1,14 @@
 <?php
 require_once('controlleur/UserController.php');
 
-$iduser = $_GET['iduser'];
-
+//$iduser = $_GET['iduser'];
+$iduser =2;
 $controller = new UserController();
 $profile = $controller->getProfilAdoptant($iduser);
 $user = $profile['userData'];
 $adoptions = $profile['adoptions'];
+var_dump($adoptions);
+var_dump($user);
 
 ?>
 <!doctype html>
