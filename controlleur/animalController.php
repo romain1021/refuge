@@ -16,7 +16,13 @@ class AnimalController {
 
 
     function addAnimal(Animaux $animal) {
-       if (!isset($animal->getType()) || !isset($animal->getNom()) || !isset($animal->getAge()) || empty($animal->getDescription()) ||!isset($animal->getStatut())) {
+        $type = $animal->getType();
+        $nom = $animal->getNom();
+        $age = $animal->getAge();
+        $description = $animal->getDescription();
+        $statut = $animal->getStatut();
+
+       if (!isset($type) || !isset($nom) || !isset($age) || !isset($description) ||!isset($statut)) {
             return false; 
         }
         else{
