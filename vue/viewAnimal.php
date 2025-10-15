@@ -1,5 +1,5 @@
 <?php
-require_once '../controlleur/animalController.php';
+require_once 'controlleur/animalController.php';
 
 $animals = getAnimal($_GET['id']);
 if ($animals['statut'] != 0) {

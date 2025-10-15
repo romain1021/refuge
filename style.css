@@ -1,0 +1,14 @@
+.animal-list {
+	max-width: 800px;       /* largeur maximale pour permettre le centrage */
+	margin-left: auto;      /* centre horizontalement */
+	margin-right: auto;     /* centre horizontalement */
+	padding: 16px;          /* espace intérieur pour respirer */
+}
+
+.animal-list .animal {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #fafafa;
+}

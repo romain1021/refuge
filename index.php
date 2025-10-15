@@ -1,11 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-</head>
-<body>
-    <h1>hello world</h1>
-</body>
-</html>
+<link rel="stylesheet" href='style.css'>
+
+<?php
+require_once("controlleur/UserController.php");
+require_once("controlleur/animalController.php");
+require_once("model/animaux.php");
+require_once("model/user.php");
+session_abort();
+session_start();
+
+if(isset($_GET['page'])){
+    if ($_GET['page']=="home"){
+        require_once('vue/deconnection.php');
+        require_once('vue/homes.php');
+        require_once('vue/listeAnnimal.php');
+    }
+
+    if ($_GET['page']=='inscription'){
+
+        require_once('vue/register.php');
+        echo'test';
+    }
+
+    if ($_GET['page']=='connexion'){
+        require_once('vue/login.php');
+    }
+
+    if ($_GET['page']=='profil'){
+        require_once('vue/vueProfilAdoptant.php');
+    }
+
+    if ($_GET['page']=='registerAnimal'){
+        require_once('vue/registerAnimal.php');
+    }
+
+    if ($_GET['page']=='viewAnimal'){
+        require_once('vue/viewAnimal.php');
+    }
+
+    if ($_GET['page']=='vueProfilAdoptant'){
+        require_once('vue/vueProfilAdoptant.php');
+    }
+
+    if ($_GET['page']=='deconnexion'){
+        $userController= new UserController();
+        $userController->logout();
+    }
+
+    
+}
+
+else{
+   $_get=='connexion';
+}

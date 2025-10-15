@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscription utilisateur</title>
-</head>
-<body>
-
-<h2>Formulaire d'inscription </h2>
-
-<!-- Le formulaire -->
-<form method="POST" action="register.php">
+<form method="POST" action="index.php?page=inscription">
     <label>Nom :</label><br>
     <input type="text" name="nom" required><br><br>
 
@@ -29,7 +18,6 @@
 </form>
 
 <?php
-require_once('../controlleur/UserController.php');
 if($_SERVER['REQUEST_METHOD']==='POST'){
     if(isset($_POST['email'])){
 
@@ -39,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $adresse=$_POST['adresse'];
     $password=$_POST['password'];
 
-$userController=new UserController();
+$userController= new UserController();
 
 $registerOK=$userController->register($nom,$prenom,$email,$password,$adresse);
 

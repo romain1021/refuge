@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/../model/user.php';
-session_start();
+//session_start();
 
 class UserController{
     private User $user;
@@ -23,16 +23,17 @@ class UserController{
         return $conn;
     }
 
-    public function login($username, $password){
+    public function login($email, $password){
         $conn = $this->getConnection();
 
-        $stmt = $conn->prepare("SELECT id, password FROM User WHERE username = :username");
-        $stmt->bindParam(':username', $username);
+        $stmt = $conn->prepare("SELECT id, password FROM User WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result && password_verify($password, $result['password'])) {
             $_SESSION['user_id'] = $result['id'];
+            header('Location: index.php?page=home');
             return true;
         }
 
@@ -94,6 +95,11 @@ class UserController{
         $adoptionData = $this->getAdoptionFromUser($iduser);
 
         return ['userData' => $userData, 'adoptions' => $adoptionData];
+    }
+
+    public function logout(){
+        session_destroy();
+        header('Location: index.php?page=connexion');
     }
 }
 
