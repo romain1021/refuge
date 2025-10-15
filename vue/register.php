@@ -15,30 +15,6 @@
     <input type="text" name="adresse" required><br><br>
 
     <input type="submit" name="register" value="S'inscrire">
+    
 </form>
 
-<?php
-if($_SERVER['REQUEST_METHOD']==='POST'){
-    if(isset($_POST['email'])){
-
-    $nom=$_POST['nom'];
-    $prenom=$_POST['prenom'];
-    $email=$_POST['email'];
-    $adresse=$_POST['adresse'];
-    $password=$_POST['password'];
-
-$userController= new UserController();
-
-$registerOK=$userController->register($nom,$prenom,$email,$password,$adresse);
-
-if($registerOK){
-    echo "<p style='color:green;'>Inscription réussie !</p>";
-}else{
-    echo "<p style='color:red;'>Erreur : email déjà utilisé ou données incorrectes.</p>";
-        }
-    }
-}
-?>
-
-</body>
-</html>

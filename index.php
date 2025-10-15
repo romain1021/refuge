@@ -7,7 +7,7 @@ require_once("model/animaux.php");
 require_once("model/user.php");
 session_abort();
 session_start();
-
+require_once('tests/DEBUG.php');
 if(isset($_GET['page'])){
     if ($_GET['page']=="home"){
         require_once('vue/deconnection.php');
@@ -38,7 +38,13 @@ if(isset($_GET['page'])){
     }
 
     if ($_GET['page']=='vueProfilAdoptant'){
-        require_once('vue/vueProfilAdoptant.php');
+        if($_SESSION['user_statut'] == 0){
+            header('Location: index.php?page=home');
+        }
+        else{
+            require_once('vue/vueProfilAdoptant.php');
+
+        }
     }
 
     if ($_GET['page']=='deconnexion'){
@@ -50,5 +56,7 @@ if(isset($_GET['page'])){
 }
 
 else{
-   $_get=='connexion';
+   $_GET['page']=='connexion';
+   header('Location: index.php?page=connexion');
 }
+

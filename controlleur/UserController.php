@@ -26,13 +26,16 @@ class UserController{
     public function login($email, $password){
         $conn = $this->getConnection();
 
-        $stmt = $conn->prepare("SELECT id, password FROM User WHERE email = :email");
+        $stmt = $conn->prepare("SELECT id, password, statut FROM User WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
         if ($result && password_verify($password, $result['password'])) {
             $_SESSION['user_id'] = $result['id'];
+            $_SESSION['user_statut'] = $result['statut'];
             header('Location: index.php?page=home');
             return true;
         }
