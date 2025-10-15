@@ -16,17 +16,22 @@ class AnimalController {
 
 
     function addAnimal(Animaux $animal) {
-        if (empty($animal->getType()) || empty($animal->getNom()) || empty($animal->getAge()) || empty($animal->getDescription()) || empty($animal->getStatut())) {
+       if (!isset($animal->getType()) || !isset($animal->getNom()) || !isset($animal->getAge()) || empty($animal->getDescription()) ||!isset($animal->getStatut())) {
             return false; 
         }
         else{
             $result = $this->conn->prepare("INSERT INTO animaux (type, nom, age, description, statut)VALUES (:type, :nom, :age, :description, :statut)");
-            $result->bindParam(':type', $animal->getType());
-            $result->bindParam(':nom', $animal->getNom());
-            $result->bindParam(':age', $animal->getAge());
-            $result->bindParam(':description', $animal->getDescription());
-            $result->bindParam(':statut', $animal->getStatut());
-            $result->execute();
+            $type = $animal->getType();
+            $nom = $animal->getNom();
+            $age = $animal->getAge();
+            $description = $animal->getDescription();
+            $statut = $animal->getStatut();
+
+            $result->bindParam(':type', $type);
+            $result->bindParam(':nom', $nom);
+            $result->bindParam(':age', $age);
+            $result->bindParam(':description', $description);
+            $result->bindParam(':statut', $statut);
             return $animal;
         }
         
