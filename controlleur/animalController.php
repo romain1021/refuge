@@ -40,7 +40,13 @@ class AnimalController {
         $result->bindParam(':description',$animal->getDescription());
         $result->bindParam(':statut',$animal->getStatut());        
         $result->execute();
-        return $animal;
+        
+        $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
+        $modifie->bindParam(':id', $animal->getId());
+        $modifie->execute();
+        $infos = $modifie->fetch(PDO::FETCH_ASSOC);
+
+        return new Animaux($infos);       
     }
 
     function changerStatut($id) {
