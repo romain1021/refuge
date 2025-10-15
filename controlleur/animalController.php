@@ -66,7 +66,13 @@ class AnimalController {
     function getAllAnnimaux() {
         $result = $this->conn->prepare("SELECT * FROM animaux");
         $result->execute();
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        $ligne = $result->fetchAll(PDO::FETCH_ASSOC);
+       
+        $animaux = []; 
+        foreach ($ligne as $infos){
+            $animaux[] = new Animaux($infos);
+        }
+        return $animaux;
     }   
 function getAnimalListHome(){
     $sql = "SELECT a.* FROM animaux a
@@ -77,6 +83,7 @@ function getAnimalListHome(){
     $result->execute();
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 
 }
