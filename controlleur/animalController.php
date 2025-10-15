@@ -1,5 +1,5 @@
 <?php
-require_once ('../model/animaux.php'); 
+require_once ('model/animaux.php'); 
 //session_start();
 
 class AnimalController {
@@ -75,8 +75,10 @@ class AnimalController {
         return $animaux;
     }   
 function getAnimalListHome(){
-    $sql = "SELECT a.* FROM animaux a
+    $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom
+        FROM animaux a
         LEFT JOIN adoptions ad ON a.id = ad.idAnimal
+        LEFT JOIN user u ON ad.idAdoptant = u.id
         WHERE ad.date IS NULL
            OR ad.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
     $result = $this->conn->prepare($sql);
@@ -84,7 +86,22 @@ function getAnimalListHome(){
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getAnimalById($id) {
+        $result = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
+        $result->bindParam(':id', $id);
+        $result->execute();
+        $infos = $result->fetch(PDO::FETCH_ASSOC);
+        return $infos;
+    }
 
-
+function getAnimalListAdopted(){
+    $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom, ad.date AS date_adoption
+        FROM animaux a
+        INNER JOIN adoptions ad ON a.id = ad.idAnimal
+        INNER JOIN user u ON ad.idAdoptant = u.id
+        WHERE ad.date IS NOT NULL";
+    $result = $this->conn->prepare($sql);
+    $result->execute();
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }
-
+}
