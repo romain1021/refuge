@@ -16,17 +16,28 @@ class AnimalController {
 
 
     function addAnimal(Animaux $animal) {
-        if (empty($animal->getType()) || empty($animal->getNom()) || empty($animal->getAge()) || empty($animal->getDescription()) || empty($animal->getStatut())) {
+        $type = $animal->getType();
+        $nom = $animal->getNom();
+        $age = $animal->getAge();
+        $description = $animal->getDescription();
+        $statut = $animal->getStatut();
+
+       if (!isset($type) || !isset($nom) || !isset($age) || !isset($description) ||!isset($statut)) {
             return false; 
         }
         else{
             $result = $this->conn->prepare("INSERT INTO animaux (type, nom, age, description, statut)VALUES (:type, :nom, :age, :description, :statut)");
-            $result->bindParam(':type', $animal->getType());
-            $result->bindParam(':nom', $animal->getNom());
-            $result->bindParam(':age', $animal->getAge());
-            $result->bindParam(':description', $animal->getDescription());
-            $result->bindParam(':statut', $animal->getStatut());
-            $result->execute();
+            $type = $animal->getType();
+            $nom = $animal->getNom();
+            $age = $animal->getAge();
+            $description = $animal->getDescription();
+            $statut = $animal->getStatut();
+
+            $result->bindParam(':type', $type);
+            $result->bindParam(':nom', $nom);
+            $result->bindParam(':age', $age);
+            $result->bindParam(':description', $description);
+            $result->bindParam(':statut', $statut);
             return $animal;
         }
         
@@ -40,7 +51,14 @@ class AnimalController {
         $result->bindParam(':description',$animal->getDescription());
         $result->bindParam(':statut',$animal->getStatut());        
         $result->execute();
-        return $animal;
+        
+        $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
+        $modifie->bindParam(':id', $animal->getId());
+        $modifie->execute();
+        $infos = $modifie->fetch(PDO::FETCH_ASSOC);
+
+        return new Animaux($infos);
+       
     }
 
     function changerStatut($id) {
