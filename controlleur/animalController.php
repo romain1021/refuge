@@ -68,6 +68,15 @@ class AnimalController {
         $result->execute();
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }   
+function getAnimalListHome(){
+    $sql = "SELECT a.* FROM animaux a
+        LEFT JOIN adoptions ad ON a.id = ad.idAnimal
+        WHERE ad.date IS NULL
+           OR ad.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+    $result = $this->conn->prepare($sql);
+    $result->execute();
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 }
