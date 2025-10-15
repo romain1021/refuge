@@ -1,15 +1,11 @@
 <?php
 require_once('controlleur/UserController.php');
-
-//$iduser = $_GET['iduser'];
-$iduser =2;
+//le lien pour acceder a cette pageindex.php?page=vueProfilAdoptant&iduser=2
+$iduser = $_GET['iduser'];
 $controller = new UserController();
-$profile = $controller->getProfilAdoptant($iduser);
-$user = $profile['userData'];
-$adoptions = $profile['adoptions'];
-var_dump($adoptions);
-var_dump($user);
 
+$adoptions = $controller->getAdoptionFromUser($iduser);
+$user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData($iduser);
 ?>
 <!doctype html>
 <html lang="fr">
@@ -28,7 +24,6 @@ var_dump($user);
         <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom'] ?? '') ?></p>
         <p><strong>Email :</strong> <?= htmlspecialchars($user['email'] ?? '') ?></p>
         <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse'] ?? '') ?></p>
-        <p><strong>Statut :</strong> <?= htmlspecialchars($user['statut'] ?? '') ?></p>
     </div>
 <?php else: ?>
     <p>Profil introuvable.</p>
@@ -36,14 +31,19 @@ var_dump($user);
 
 <h2>Adoptions</h2>
 
+
 <?php if (!empty($adoptions)): ?>
     <?php foreach ($adoptions as $ad): ?>
+        <h4>---------</h4>
+        <?php $animal = $ad['animal'] ?? [];
+              $adoption = $ad['adoption'] ?? [];
+        ?>
         <div class="adoption">
-            <h4><?= htmlspecialchars($ad['animal_nom'] ?? ('Animal #' . ($ad['animal_id'] ?? ''))) ?></h4>
-            <p><strong>Espèce :</strong> <?= htmlspecialchars($ad['espece'] ?? '') ?></p>
-            <p><strong>Âge :</strong> <?= htmlspecialchars($ad['age'] ?? '') ?></p>
-            <p><strong>Description :</strong> <?= nl2br(htmlspecialchars($ad['description'] ?? '')) ?></p>
-            <p><strong>Date d'adoption :</strong> <?= htmlspecialchars($ad['adoption_date'] ?? '') ?></p>
+            <h4>Nom : <?= htmlspecialchars($animal['nom'] ?? ('Animal #' . ($animal['id'] ?? ''))) ?></h4>
+            <p><strong>Espèce :</strong> <?= htmlspecialchars($animal['type'] ?? '') ?></p>
+            <p><strong>Âge :</strong> <?= htmlspecialchars($animal['age'] ?? '') ?></p>
+            <p><strong>Description :</strong> <?= nl2br(htmlspecialchars($animal['description'] ?? '')) ?></p>
+            <p><strong>Date d'adoption :</strong> <?= htmlspecialchars($adoption['date'] ?? '') ?></p>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
