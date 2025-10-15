@@ -3,6 +3,7 @@
 $controller = new AnimalController();
 $animaux = $controller->getAllAnnimaux();
 if (!empty($animaux)) {
+	echo '<div class="animal-list">';
 	foreach ($animaux as $animal) {
 		echo '<div class="animal">';
 		echo '<p><strong>Type :</strong> ' . htmlspecialchars($animal['type']) . '</p>';
