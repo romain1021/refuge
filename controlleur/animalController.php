@@ -1,5 +1,5 @@
 <?php
-require_once ('model/animaux.php'); 
+require_once ('../model/animaux.php'); 
 //session_start();
 
 class AnimalController {
