@@ -1,7 +1,7 @@
 <?php
 require_once 'controlleur/animalController.php';
-
-$animals = getAnimal($_GET['id']);
+$controller = new AnimalController();
+$animals = $controller->getAnimalById($_GET['id']);
 if ($animals['statut'] != 0) {
     $statut = 'Adopté';
 } else {
