@@ -1,6 +1,5 @@
-<link rel="stylesheet" href='style.css'>
-
 <?php
+require_once("vue/header.php");
 require_once("controlleur/UserController.php");
 require_once("controlleur/animalController.php");
 require_once("model/animaux.php");
