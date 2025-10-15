@@ -1,7 +1,7 @@
 <?php
 require_once 'model/animaux.php';
 session_start();
-
+$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
 class animalController{
     private animaux $animal;
 

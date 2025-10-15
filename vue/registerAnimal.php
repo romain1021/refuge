@@ -23,7 +23,6 @@
     <label>Description :</label><br>
     <textarea name="description" rows="3" cols="30"></textarea><br><br>
 
-
     <input type="submit" value="Ajouter">
 
    
@@ -31,7 +30,7 @@
 </body>
 </html>
 <?php
-require_once('../controlleur/AnimalController.php');
+require_once('controlleur/AnimalController.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['nom'])) {
