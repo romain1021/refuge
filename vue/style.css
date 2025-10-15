@@ -12,3 +12,12 @@
 	margin-bottom: 12px;
 	background: #fafafa;
 }
+
+.debug {
+	border: 2px dashed #c00;
+	background: #fff0f0;
+	padding: 12px;
+	margin: 16px 0;
+	color: #c00;
+	border-radius: 8px;
+}
