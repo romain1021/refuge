@@ -8,14 +8,7 @@ if ($animals['statut'] != 0) {
     $statut = 'Disponible';
 }
 
-echo '<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>fiche annimal</title>
-</head>
-<body>
-
+echo '
     <h1>Fiche de l\'animal</h1>
     <p>Nom : ' . htmlspecialchars($animals['nom']) . '</p>
     <p>Type : ' . htmlspecialchars($animals['type']) . '</p>

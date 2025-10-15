@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulaire d'inscription d'un animal</title>
-</head>
-<body>
 
     <h1>Inscrire un animal</h1>
     <form method="post" action="registerAnimal.php?page=ajoute_animal">
