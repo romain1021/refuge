@@ -4,11 +4,11 @@ require_once("controlleur/UserController.php");
 require_once("controlleur/animalController.php");
 require_once("model/animaux.php");
 require_once("model/user.php");
+echo "<link rel=stylesheet href='style.css'>";
 session_abort();
 session_start();
 if(isset($_GET['page'])){
     if ($_GET['page']=="home"){
-        require_once('vue/deconnection.php');
         require_once('vue/homes.php');
         require_once('vue/listeAnnimal.php');
     }
