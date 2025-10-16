@@ -8,6 +8,8 @@ class Animaux
     private string $age = '';
     private string $description = '';
     private int $statut = 0;
+    private int $user_id = 0;
+    private string $user_nom = '';
 
     public function __construct(array $data = [])
     {
@@ -17,6 +19,8 @@ class Animaux
         if (isset($data['age'])) $this->age = $data['age'];
         if (isset($data['description'])) $this->description = $data['description'];
         if (isset($data['statut'])) $this->statut = $data['statut'];
+        if (isset($data['user_id'])) $this->user_id = $data['user_id'];
+        if (isset($data['user_nom'])) $this->user_nom = $data['user_nom'];
     }
 
     // id
@@ -91,5 +95,27 @@ class Animaux
         return $this;
     }
 
+    // user_id
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
 
+    public function setUserId(int $user_id)
+    {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    // user_nom
+    public function getUserNom()
+    {
+        return $this->user_nom;
+    }
+
+    public function setUserNom(string $user_nom)
+    {
+        $this->user_nom = $user_nom;
+        return $this;
+    }
 }
