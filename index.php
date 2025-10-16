@@ -6,7 +6,6 @@ require_once("model/animaux.php");
 require_once("model/user.php");
 session_abort();
 session_start();
-require_once('tests/DEBUG.php');
 if(isset($_GET['page'])){
     if ($_GET['page']=="home"){
         require_once('vue/deconnection.php');
@@ -64,3 +63,4 @@ else{
    header('Location: index.php?page=connexion');
 }
 
+require_once("vue/footer.php");
