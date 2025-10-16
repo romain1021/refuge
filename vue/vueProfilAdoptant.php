@@ -15,6 +15,7 @@ $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData(
         <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom'] ?? '') ?></p>
         <p><strong>Email :</strong> <?= htmlspecialchars($user['email'] ?? '') ?></p>
         <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse'] ?? '') ?></p>
+        <p><strong>statut :</strong> <?= htmlspecialchars($user['statut'] ?? '') ?></p>
     </div>
 <?php else: ?>
     <p>Profil introuvable.</p>

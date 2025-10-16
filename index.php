@@ -42,6 +42,7 @@ if(isset($_GET['page'])){
         }
         else{
             require_once('vue/vueProfilAdoptant.php');
+            require_once('vue/buttonChangerStatuUser.php');
 
         }
     }

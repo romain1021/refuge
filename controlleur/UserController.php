@@ -109,6 +109,21 @@ class UserController{
         session_destroy();
         header('Location: index.php?page=connexion');
     }
-}
 
-    
+    public function changeUserStatut($id){
+        $conn = $this->getConnection();
+        $stmt = $conn->prepare("SELECT statut FROM User WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $currentStatut = $stmt->fetchColumn();
+        if ($currentStatut == 1) {
+            $newStatut = 0;
+        } else {
+            $newStatut = 1;
+        }
+        $stmt = $conn->prepare("UPDATE User SET statut = :statut WHERE id = :id");
+        $stmt->bindParam(':statut', $newStatut);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+}
+}
