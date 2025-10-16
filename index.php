@@ -51,6 +51,10 @@ if(isset($_GET['page'])){
         $userController->logout();
     }
 
+    if ($_GET['page']=='adoptedAnimals'){
+        require_once('vue/animauxAdopteListe.php');
+    }
+
     
 }
 

@@ -1,8 +1,8 @@
 <?php
 
 $controller = new AnimalController();
-$animaux = $controller->getAnimalListHome();
-// var_dump($animaux); // debug si besoin
+$animaux = $controller->getAnimalListAdopted();
+var_dump($animaux); // debug si besoin
 if (!empty($animaux)) {
 	echo '<div class="animal-list">';
 	foreach ($animaux as $animal) {

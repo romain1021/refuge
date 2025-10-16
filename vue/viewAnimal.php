@@ -1,21 +1,14 @@
 <?php
 require_once 'controlleur/animalController.php';
-
-$animals = getAnimal($_GET['id']);
+$controller = new AnimalController();
+$animals = $controller->getAnimalById($_GET['id']);
 if ($animals['statut'] != 0) {
     $statut = 'Adopté';
 } else {
     $statut = 'Disponible';
 }
 
-echo '<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>fiche annimal</title>
-</head>
-<body>
-
+echo '
     <h1>Fiche de l\'animal</h1>
     <p>Nom : ' . htmlspecialchars($animals['nom']) . '</p>
     <p>Type : ' . htmlspecialchars($animals['type']) . '</p>
