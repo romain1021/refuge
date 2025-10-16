@@ -19,8 +19,6 @@
 
     <input type="submit" value="Ajouter">
 
-   
-
 </body>
 </html>
 
