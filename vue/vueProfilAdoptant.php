@@ -7,15 +7,6 @@ $controller = new UserController();
 $adoptions = $controller->getAdoptionFromUser($iduser);
 $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData($iduser);
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Profil adoptant</title>
-</head>
-<body>
-
 <h1>Profil de l'adoptant</h1>
 
 <?php if ($user): ?>
@@ -24,6 +15,7 @@ $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData(
         <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom'] ?? '') ?></p>
         <p><strong>Email :</strong> <?= htmlspecialchars($user['email'] ?? '') ?></p>
         <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse'] ?? '') ?></p>
+        <p><strong>statut :</strong> <?= htmlspecialchars($user['statut'] ?? '') ?></p>
     </div>
 <?php else: ?>
     <p>Profil introuvable.</p>
@@ -49,6 +41,3 @@ $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData(
 <?php else: ?>
     <p>Aucune adoption trouvée pour cet utilisateur.</p>
 <?php endif; ?>
-
-</body>
-</html>

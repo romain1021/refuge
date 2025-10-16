@@ -1,5 +1,5 @@
 <?php
-require_once ('../model/animaux.php'); 
+require_once ('model/animaux.php'); 
 //session_start();
 
 class AnimalController {
@@ -45,12 +45,18 @@ class AnimalController {
 
     function editAnimal(Animaux $animal) {
         $result = $this->conn->prepare("UPDATE animaux SET type = :type, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
-        $result->bindParam(':type',$animal->getType());
-        $result->bindParam(':nom',$animal->getNom());
-        $result->bindParam(':age',$animal->getAge());
-        $result->bindParam(':description',$animal->getDescription());
-        $result->bindParam(':statut',$animal->getStatut());        
-        $result->execute();
+        $type = $animal->getType();
+        $nom = $animal->getNom();
+        $age = $animal->getAge();
+        $description = $animal->getDescription();
+        $statut = $animal->getStatut();
+
+        $result->bindParam(':type', $type);
+        $result->bindParam(':nom', $nom);
+        $result->bindParam(':age', $age);
+        $result->bindParam(':description', $description);
+        $result->bindParam(':statut', $statut);    
+        $result->execute();       
         
         $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
         $modifie->bindParam(':id', $animal->getId());
@@ -92,34 +98,44 @@ class AnimalController {
         }
         return $animaux;
     }   
-function getAnimalListHome(){
-    $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom
-        FROM animaux a
-        LEFT JOIN adoptions ad ON a.id = ad.idAnimal
-        LEFT JOIN user u ON ad.idAdoptant = u.id
-        WHERE ad.date IS NULL
-           OR ad.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
-    $result = $this->conn->prepare($sql);
-    $result->execute();
-    return $result->fetchAll(PDO::FETCH_ASSOC);
-}
+    function getAnimalListHome(){
+        $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom, ad.date AS date_adoption
+            FROM animaux a
+            LEFT JOIN adoptions ad ON a.id = ad.idAnimal
+            LEFT JOIN user u ON ad.idAdoptant = u.id
+            WHERE ad.date IS NULL
+               OR ad.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+        $result = $this->conn->prepare($sql);
+        $result->execute();
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+        $animaux = [];
+        foreach ($rows as $row) {
+            $animaux[] = new Animaux($row);
+        }
+        return $animaux;
+    }
 
 function getAnimalById($id) {
         $result = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
         $result->bindParam(':id', $id);
         $result->execute();
         $infos = $result->fetch(PDO::FETCH_ASSOC);
-        return $infos;
+        return new Animaux($infos);
     }
 
-function getAnimalListAdopted(){
-    $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom, ad.date AS date_adoption
-        FROM animaux a
-        INNER JOIN adoptions ad ON a.id = ad.idAnimal
-        INNER JOIN user u ON ad.idAdoptant = u.id
-        WHERE ad.date IS NOT NULL";
-    $result = $this->conn->prepare($sql);
-    $result->execute();
-    return $result->fetchAll(PDO::FETCH_ASSOC);
-}
+    function getAnimalListAdopted(){
+        $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom, ad.date AS date_adoption
+            FROM animaux a
+            INNER JOIN adoptions ad ON a.id = ad.idAnimal
+            INNER JOIN user u ON ad.idAdoptant = u.id
+            WHERE ad.date IS NOT NULL";
+        $result = $this->conn->prepare($sql);
+        $result->execute();
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+        $animaux = [];
+        foreach ($rows as $row) {
+            $animaux[] = new Animaux($row);
+        }
+        return $animaux;
+    }
 }

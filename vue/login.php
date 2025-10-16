@@ -8,7 +8,7 @@
         
         <input type="submit" value="Se connecter" />
 
-        <button type="button" onclick="location.href='inscription.php'">Créer un compte</button>
+        <button type="button" onclick="location.href='index.php?page=inscription'">Créer un compte</button>
     </form>
 </body>
 </html>

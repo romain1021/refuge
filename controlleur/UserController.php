@@ -11,7 +11,6 @@ class UserController{
 
     public function __construct(){
         $this->user = new User();
-        // Database credentials - adjust if needed
         $this->dsn = 'mysql:host=localhost;dbname=refuge;charset=utf8mb4';
         $this->dbUser = 'root';
         $this->dbPass = '';
@@ -74,13 +73,8 @@ class UserController{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Retourne la liste des adoptions d'un utilisateur avec les informations sur l'animal.
-     * Structure retournée: array of ['adoption_id', 'user_id', 'animal_id', 'adoption_date', 'animal.*']
-     */
     function getAdoptionFromUser($id){
         $conn = $this->getConnection();
-    // Récupère les adoptions de l'utilisateur
     $stmt = $conn->prepare("SELECT * FROM adoptions WHERE idAdoptant = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
@@ -88,16 +82,13 @@ class UserController{
 
         $result = [];
         foreach ($adoptions as $adoption) {
-            // Récupère l'animal lié à l'adoption
             $stmt = $conn->prepare("SELECT * FROM animaux WHERE id = :animal_id");
             $stmt->bindParam(':animal_id', $adoption['idAnimal']);
             $stmt->execute();
             $animal = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Récupère l'utilisateur (optionnel si besoin d'info complète à chaque entrée)
             $user = $this->fetchUserData($id);
 
-            // Fusionne les infos dans une seule variable
             $result[] = [
                 'user' => $user,
                 'adoption' => $adoption,
@@ -118,6 +109,21 @@ class UserController{
         session_destroy();
         header('Location: index.php?page=connexion');
     }
-}
 
-    
+    public function changeUserStatut($id){
+        $conn = $this->getConnection();
+        $stmt = $conn->prepare("SELECT statut FROM User WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $currentStatut = $stmt->fetchColumn();
+        if ($currentStatut == 1) {
+            $newStatut = 0;
+        } else {
+            $newStatut = 1;
+        }
+        $stmt = $conn->prepare("UPDATE User SET statut = :statut WHERE id = :id");
+        $stmt->bindParam(':statut', $newStatut);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+}
+}
