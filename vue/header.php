@@ -14,6 +14,9 @@ if (!empty($_SESSION)) {
     echo '<button onclick="location.href=\'index.php?page=deconnexion\'" class="btn-deconnexion">Se déconnecter</button>';
     echo '<button onclick="location.href=\'index.php?page=adoptedAnimals\'" class="btn-adopted">Animaux adoptés</button>';
     echo '<button onclick="location.href=\'index.php?page=home\'" class="btn-home">Accueil</button>';
+
+    if ($_SESSION['user_statut'] == 1) {
+        echo '<button onclick="location.href=\'index.php?page=registerAnimal\'" class="btn-register-animal">Enregistrer un animal</button>';
 }
-    
+}
 ?>

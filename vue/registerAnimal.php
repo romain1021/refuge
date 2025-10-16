@@ -1,7 +1,6 @@
-
 <body>
     <h1>Inscrire un animal</h1>
-    <form method="post" action="registerAnimal.php?page=ajoute_animal">
+    <form method="POST" action="index.php?page=registerAnimal">
     <label>Nom :</label><br>
     <input type="text" name="nom" required><br><br>
 
@@ -22,19 +21,19 @@
 </body>
 </html>
 <?php
-if($_SERVER['RESQUEST_METHOD'] === 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $data=[
         'nom'=>$_POST['nom'],
         'type'=>$_POST['type'],
         'age'=>$_POST['age'],
         'description'=>$_POST['description'],
-        'statut'=>'disponible'
+        'statut'=>0 
     ];
 
     $animal=new Animaux($data);
-
-    $animaux[] = $animal;
+    $controller = new AnimalController();
+    $controller->addAnimal($animal);
 
     echo "<h2>Animal ajouté avec succès !</h2>";
 

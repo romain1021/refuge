@@ -21,11 +21,6 @@ class AnimalController {
         $age = $animal->getAge();
         $description = $animal->getDescription();
         $statut = $animal->getStatut();
-
-       if (!isset($type) || !isset($nom) || !isset($age) || !isset($description) ||!isset($statut)) {
-            return false; 
-        }
-        else{
             $result = $this->conn->prepare("INSERT INTO animaux (type, nom, age, description, statut)VALUES (:type, :nom, :age, :description, :statut)");
             $type = $animal->getType();
             $nom = $animal->getNom();
@@ -38,8 +33,9 @@ class AnimalController {
             $result->bindParam(':age', $age);
             $result->bindParam(':description', $description);
             $result->bindParam(':statut', $statut);
+            $result->execute();
             return $animal;
-        }
+
         
     }
 
