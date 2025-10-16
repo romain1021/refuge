@@ -17,6 +17,12 @@
     <label>Description :</label><br>
     <textarea name="description" rows="3" cols="30"></textarea><br><br>
 
+    <label>Statut :</label><br>
+        <select name="statut" required>
+            <option value="0">Disponible</option>
+            <option value="1">Adopté</option>
+        </select><br><br>
+
     <input type="submit" value="Ajouter">
 
    
