@@ -138,4 +138,6 @@ function getAnimalById($id) {
         }
         return $animaux;
     }
+
+
 }

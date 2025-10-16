@@ -11,11 +11,11 @@ $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData(
 
 <?php if ($user): ?>
     <div class="profile">
-        <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom'] ?? '') ?></p>
-        <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom'] ?? '') ?></p>
-        <p><strong>Email :</strong> <?= htmlspecialchars($user['email'] ?? '') ?></p>
-        <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse'] ?? '') ?></p>
-        <p><strong>statut :</strong> <?= htmlspecialchars($user['statut'] ?? '') ?></p>
+        <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
+        <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom']) ?></p>
+        <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
+        <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
+        <p><strong>statut :</strong> <?= htmlspecialchars($user['statut']) ?></p>
     </div>
 <?php else: ?>
     <p>Profil introuvable.</p>
@@ -31,11 +31,11 @@ $user = !empty($adoptions) ? $adoptions[0]['user'] : $controller->fetchUserData(
               $adoption = $ad['adoption'] ?? [];
         ?>
         <div class="adoption">
-            <h4>Nom : <?= htmlspecialchars($animal['nom'] ?? ('Animal #' . ($animal['id'] ?? ''))) ?></h4>
-            <p><strong>Espèce :</strong> <?= htmlspecialchars($animal['type'] ?? '') ?></p>
-            <p><strong>Âge :</strong> <?= htmlspecialchars($animal['age'] ?? '') ?></p>
-            <p><strong>Description :</strong> <?= nl2br(htmlspecialchars($animal['description'] ?? '')) ?></p>
-            <p><strong>Date d'adoption :</strong> <?= htmlspecialchars($adoption['date'] ?? '') ?></p>
+            <h4>Nom : <?= htmlspecialchars($animal['nom'] ?? ('Animal #' . ($animal['id']))) ?></h4>
+            <p><strong>Espèce :</strong> <?= htmlspecialchars($animal['type']) ?></p>
+            <p><strong>Âge :</strong> <?= htmlspecialchars($animal['age']) ?></p>
+            <p><strong>Description :</strong> <?= nl2br(htmlspecialchars($animal['description'])) ?></p>
+            <p><strong>Date d'adoption :</strong> <?= htmlspecialchars($adoption['date']) ?></p>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
