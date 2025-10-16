@@ -21,4 +21,23 @@
 
 </body>
 </html>
+<?php
+if($_SERVER['RESQUEST_METHOD'] === 'POST'){
+
+    $data=[
+        'nom'=>$_POST['nom'],
+        'type'=>$_POST['type'],
+        'age'=>$_POST['age'],
+        'description'=>$_POST['description'],
+        'statut'=>'disponible'
+    ];
+
+    $animal=new Animaux($data);
+
+    $animaux[] = $animal;
+
+    echo "<h2>Animal ajouté avec succès !</h2>";
+
+}
+?>
 
