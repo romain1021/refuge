@@ -3,6 +3,8 @@ require_once __DIR__ . '/animaux.php';
 
 class Chien extends Animaux
 {
+    private string $race = '';
+    
     public static array $races = ['Labrador','Golden Retriever','Berger Allemand','Bouledogue Français','Beagle','Teckel','Yorkshire','Border Collie','Bichon Frisé','Rottweiler'];
 
     public static function getRaces(): array{
