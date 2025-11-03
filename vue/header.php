@@ -9,14 +9,21 @@
 
 <?php
 session_start();
+// Header structure : deux zones pour appliquer le CSS (.header-left / .header-right)
+echo '<header>';
+echo '<div class="header-left">';
+echo '<a href="index.php?page=home" class="logo">Refuge Animaux</a>';
+echo '</div>';
+echo '<div class="header-right">';
 if (!empty($_SESSION)) {
-    echo '<p>Bienvenue!</p>';
-    echo '<button onclick="location.href=\'index.php?page=deconnexion\'" class="btn-deconnexion">Se déconnecter</button>';
-    echo '<button onclick="location.href=\'index.php?page=adoptedAnimals\'" class="btn-adopted">Animaux adoptés</button>';
-    echo '<button onclick="location.href=\'index.php?page=home\'" class="btn-home">Accueil</button>';
-
-    if ($_SESSION['user_statut'] == 1) {
-        echo '<button onclick="location.href=\'index.php?page=registerAnimal\'" class="btn-register-animal">Enregistrer un animal</button>';
+    echo '<button onclick="location.href=\'index.php?page=adoptedAnimals\'" class="btn btn-adopted">Animaux adoptés</button>';
+    echo '<button onclick="location.href=\'index.php?page=home\'" class="btn btn-home">Accueil</button>';
+    
+    if (isset($_SESSION['user_statut']) && $_SESSION['user_statut'] == 1) {
+        echo '<button onclick="location.href=\'index.php?page=registerAnimal\'" class="btn btn-register-animal">Enregistrer un animal</button>';
+    }
+    echo '<button onclick="location.href=\'index.php?page=deconnexion\'" class="btn btn-deconnexion">Se déconnecter</button>';
 }
-}
+echo '</div>';
+echo '</header>';
 ?>
