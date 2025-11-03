@@ -1,9 +1,8 @@
 <?php
 $BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
-class Animaux
+abstract class Animaux
 {
     private int $id = 0;
-    private string $type = '';
     private string $nom = '';
     private string $age = '';
     private string $description = '';
@@ -14,7 +13,6 @@ class Animaux
     public function __construct(array $data = [])
     {
         if (isset($data['id'])) $this->id =$data['id'];
-        if (isset($data['type'])) $this->type = $data['type'];
         if (isset($data['nom'])) $this->nom = $data['nom'];
         if (isset($data['age'])) $this->age = $data['age'];
         if (isset($data['description'])) $this->description = $data['description'];
@@ -32,18 +30,6 @@ class Animaux
     public function setId(int $id)
     {
         $this->id = $id;
-        return $this;
-    }
-
-    // type
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type)
-    {
-        $this->type = $type;
         return $this;
     }
 
@@ -118,4 +104,7 @@ class Animaux
         $this->user_nom = $user_nom;
         return $this;
     }
+
+    abstract public function getType();
+    abstract public function afficher();
 }
