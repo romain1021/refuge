@@ -18,4 +18,13 @@ class Chien extends Animaux
     public function getRace(): ?string{
         return $this->race;
     }
+
+    public function getType(){
+        return 'Chien';
+    }
+    
+    public function afficher(){
+        return "Chien : " . $this->getNom() . ", " . $this->getAge() . " ans, " . $this->getDescription(). ", " .$this->getStatut();
+    }
+    
 }
