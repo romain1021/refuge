@@ -18,4 +18,12 @@ class Chat extends Animaux
     public function getRace(): ?string{
         return $this->race;
     }
+
+    public function getType(){
+        return 'Chat';
+    }
+    
+    public function afficher(){
+        return "Chat : " . $this->getNom() . ", " . $this->getAge() . " ans, " . $this->getDescription(). ", " .$this->getStatut();
+    }
 }
