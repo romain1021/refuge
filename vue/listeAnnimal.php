@@ -15,9 +15,9 @@ if (!empty($animaux)) {
         echo '<p><strong>Statut :</strong> ' . htmlspecialchars($statut) . '</p>';
         if ($statut === 'Adopté') {
             $iduser = htmlspecialchars($animal->getUserId());
-            $nomAdoptant = htmlspecialchars($animal->user_nom ?? '');
+            $nomAdoptant = htmlspecialchars($animal->user_nom);
             echo '<p><strong>Adopté par :</strong> <a href="index.php?page=vueProfilAdoptant&iduser=' . $iduser . '">' . $nomAdoptant . '</a> (ID: ' . $iduser . ')</p>';
-            echo '<p><strong>Date d\'adoption :</strong> ' . htmlspecialchars($animal->date_adoption ?? '') . '</p>';
+            echo '<p><strong>Date d\'adoption :</strong> ' . htmlspecialchars($animal->date_adoption) . '</p>';
         }
         echo '<a href="index.php?page=viewAnimal&id=' . htmlspecialchars($animal->getId()) . '">Voir la fiche</a>';
         echo '</div><hr>';
