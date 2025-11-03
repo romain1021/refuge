@@ -3,6 +3,8 @@ require_once __DIR__ . '/animaux.php';
 
 class Chat extends Animaux
 {
+    private string $race = '';
+
     public static array $Listeraces = ['Siamois','Persan','Maine Coon','British Shorthair','Bengal','Sphynx','Ragdoll','Norvégien','Européen','Scottish Fold'
     ];
 
@@ -17,5 +19,13 @@ class Chat extends Animaux
 
     public function getRace(): ?string{
         return $this->race;
+    }
+
+    public function getType(){
+        return 'Chat';
+    }
+    
+    public function afficher(){
+        return "Chat : " . $this->getNom() . ", " . $this->getAge() . " ans, " . $this->getDescription(). ", " .$this->getStatut();
     }
 }
