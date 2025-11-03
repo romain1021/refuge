@@ -1,5 +1,7 @@
 <?php
-require_once ('model/animaux.php'); 
+require_once __DIR__ . '/../model/animaux.php';
+require_once __DIR__ . '/../model/chien.php';
+require_once __DIR__ . '/../model/chat.php';
 //session_start();
 
 class AnimalController {
@@ -133,6 +135,16 @@ function getAnimalById($id) {
             $animaux[] = new Animaux($row);
         }
         return $animaux;
+    }
+
+    function getRace(){
+        $type = $_GET['type'];
+        if($type == 'Chien'){
+            return Chien::getRaces();
+        }
+        elseif($type == 'Chat'){
+            return Chat::getRaces();
+        }
     }
 
 
