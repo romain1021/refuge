@@ -21,19 +21,16 @@ class AnimalController {
         $age = $animal->getAge();
         $description = $animal->getDescription();
         $statut = $animal->getStatut();
-            $result = $this->conn->prepare("INSERT INTO animaux (type, nom, age, description, statut)VALUES (:type, :nom, :age, :description, :statut)");
-            $type = $animal->getType();
-            $nom = $animal->getNom();
-            $age = $animal->getAge();
-            $description = $animal->getDescription();
-            $statut = $animal->getStatut();
+        $race = $animal->getRace();
 
+            $result = $this->conn->prepare("INSERT INTO animaux (type, race, nom, age, description, statut)VALUES (:type, :race, :nom, :age, :description, :statut)");
             $result->bindParam(':type', $type);
             $result->bindParam(':nom', $nom);
             $result->bindParam(':age', $age);
             $result->bindParam(':description', $description);
             $result->bindParam(':statut', $statut);
             $result->execute();
+            $result->bindParam(':race', $race);
             return $animal;
 
         
