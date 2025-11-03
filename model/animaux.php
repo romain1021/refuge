@@ -9,6 +9,7 @@ abstract class Animaux
     private int $statut = 0;
     private int $user_id = 0;
     private string $user_nom = '';
+    private string $race = '';
 
     public function __construct(array $data = [])
     {
@@ -105,6 +106,16 @@ abstract class Animaux
         return $this;
     }
 
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    public function setRace(string $race)
+    {
+        $this->race = $race;
+        return $this;
+    }
     abstract public function getType();
     abstract public function afficher();
 }
