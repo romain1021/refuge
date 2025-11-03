@@ -12,7 +12,7 @@ class AnimalController {
         $BaseDeDonnees = "mysql:host=localhost;dbname=refuge";
         $this->conn = new PDO($BaseDeDonnees, "root", "");
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->animal = new Animaux();
+        //$this->animal = new Animaux();
     }
 
 
