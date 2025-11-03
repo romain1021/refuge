@@ -20,7 +20,7 @@ if (!empty($_SESSION)) {
     echo '<button onclick="location.href=\'index.php?page=home\'" class="btn btn-home">Accueil</button>';
     
     if (isset($_SESSION['user_statut']) && $_SESSION['user_statut'] == 1) {
-        echo '<button onclick="location.href=\'index.php?page=registerAnimal\'" class="btn btn-register-animal">Enregistrer un animal</button>';
+        echo '<button onclick="location.href=\'index.php?page=registerAnimalSelect\'" class="btn btn-register-animal">Enregistrer un animal</button>';
     }
     echo '<button onclick="location.href=\'index.php?page=deconnexion\'" class="btn btn-deconnexion">Se déconnecter</button>';
 }

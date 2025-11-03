@@ -1,5 +1,7 @@
 <?php
-require_once ('model/animaux.php'); 
+require_once __DIR__ . '/../model/animaux.php';
+require_once __DIR__ . '/../model/chien.php';
+require_once __DIR__ . '/../model/chat.php';
 //session_start();
 
 class AnimalController {
@@ -10,7 +12,7 @@ class AnimalController {
         $BaseDeDonnees = "mysql:host=localhost;dbname=refuge";
         $this->conn = new PDO($BaseDeDonnees, "root", "");
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->animal = new Animaux();
+        //$this->animal = new Animaux();
     }
 
 
@@ -130,6 +132,16 @@ function getAnimalById($id) {
             $animaux[] = new Animaux($row);
         }
         return $animaux;
+    }
+
+    function getRace(){
+        $type = $_GET['type'];
+        if($type == 'Chien'){
+            return Chien::getRaces();
+        }
+        elseif($type == 'Chat'){
+            return Chat::getRaces();
+        }
     }
 
 

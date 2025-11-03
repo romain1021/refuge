@@ -27,6 +27,10 @@ if(isset($_GET['page'])){
         require_once('vue/vueProfilAdoptant.php');
     }
 
+    if ($_GET['page']=='registerAnimalSelect'){
+        require_once('vue/registerAnimalSelect.php');
+    }
+
     if ($_GET['page']=='registerAnimal'){
         require_once('vue/registerAnimal.php');
     }
