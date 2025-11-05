@@ -19,7 +19,7 @@ echo '<p>Nom : ' . htmlspecialchars($animals->getNom()) . '</p>';
 echo '<p>Type : ' . htmlspecialchars($animals->getType()) . '</p>';
 echo '<p>Âge : ' . htmlspecialchars($animals->getAge()) . '</p>';
 echo '<p>Description : ' . htmlspecialchars($animals->getDescription()) . '</p>';
-if ($animals->getStatut() != 1) {
+if ($animals->getStatut() !=0) {
     $statut = 'Adopté';
     echo '<p>Statut : ' . htmlspecialchars($statut) . '</p>';
 } else {
