@@ -139,7 +139,13 @@ function getAnimalById($id) {
     }
 
     function getRace(){
-        $type = $_GET['type'];
+        if (isset($_GET['type'])) {
+            $type = $_GET['type'];
+        } 
+        else {
+            $type = '';
+        }
+        
         if($type == 'Chien'){
             return Chien::getRaces();
         }
