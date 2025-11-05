@@ -41,18 +41,20 @@ class AnimalController {
     }
 
     function editAnimal(Animaux $animal) {
-        $result = $this->conn->prepare("UPDATE animaux SET type = :type, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
+        $result = $this->conn->prepare("UPDATE animaux SET type = :type, race = :race, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
         $type = $animal->getType();
         $nom = $animal->getNom();
         $age = $animal->getAge();
         $description = $animal->getDescription();
         $statut = $animal->getStatut();
+        $race = $animal->getRace();
 
         $result->bindParam(':type', $type);
         $result->bindParam(':nom', $nom);
         $result->bindParam(':age', $age);
         $result->bindParam(':description', $description);
-        $result->bindParam(':statut', $statut);    
+        $result->bindParam(':statut', $statut); 
+        $result->bindParam(':race', $race);   
         $result->execute();       
         
         $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
