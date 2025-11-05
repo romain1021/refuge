@@ -31,8 +31,8 @@ class AnimalController {
             $result->bindParam(':age', $age);
             $result->bindParam(':description', $description);
             $result->bindParam(':statut', $statut);
-            $result->execute();
             $result->bindParam(':race', $race);
+            $result->execute();
             return $animal;
 
         
