@@ -4,13 +4,12 @@ require_once __DIR__ . '/../model/user.php';
 //session_start();
 
 class UserController{
-    private User $user;
+    private ?User $user = null;
     private string $dsn;
     private string $dbUser;
     private string $dbPass;
 
     public function __construct(){
-        $this->user = new User();
         $this->dsn = 'mysql:host=localhost;dbname=refuge;charset=utf8mb4';
         $this->dbUser = 'root';
         $this->dbPass = '';
@@ -43,7 +42,6 @@ class UserController{
     }
 
     public function register($nom, $prenom, $email, $password, $adresse){
-        // Basic validation
         if (empty($nom) || empty($prenom) || empty($email) || empty($password) || empty($adresse)) {
             return false;
         }

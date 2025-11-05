@@ -1,5 +1,6 @@
 <?php
-$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
+// DSN de base pour la base de données (utile si on veut réutiliser la config depuis le modèle)
+$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge;charset=utf8mb4';
 abstract class Animaux
 {
     private int $id = 0;

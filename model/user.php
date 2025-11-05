@@ -1,5 +1,6 @@
 <?php
-$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
+// DSN de base pour la base de données (utilisé si nécessaire)
+$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge;charset=utf8mb4';
 abstract class User
 {
     private int $id = 0;
