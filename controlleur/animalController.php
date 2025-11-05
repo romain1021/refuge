@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../model/animaux.php';
 require_once __DIR__ . '/../model/chien.php';
 require_once __DIR__ . '/../model/chat.php';
-require_once ('model/animaux.php'); 
 
 //session_start();
 
@@ -41,28 +40,28 @@ class AnimalController {
     }
 
     function editAnimal(Animaux $animal) {
-        $result = $this->conn->prepare("UPDATE animaux SET type = :type, race = :race, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
+        $result = $this->conn->prepare("UPDATE animaux SET type = :type, nom = :nom, age = :age, description = :description, statut = :statut WHERE id = :id");
         $type = $animal->getType();
         $nom = $animal->getNom();
         $age = $animal->getAge();
         $description = $animal->getDescription();
         $statut = $animal->getStatut();
-        $race = $animal->getRace();
 
         $result->bindParam(':type', $type);
         $result->bindParam(':nom', $nom);
         $result->bindParam(':age', $age);
         $result->bindParam(':description', $description);
-        $result->bindParam(':statut', $statut); 
-        $result->bindParam(':race', $race);   
-        $result->execute();       
+    $result->bindParam(':statut', $statut);    
+    $id = $animal->getId();
+    $result->bindParam(':id', $id);
+    $result->execute();       
         
         $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
         $modifie->bindParam(':id', $animal->getId());
         $modifie->execute();
-        $infos = $modifie->fetch(PDO::FETCH_ASSOC);
+    $infos = $modifie->fetch(PDO::FETCH_ASSOC);
 
-        return new Animaux($infos);
+    return $this->instantiateAnimal($infos);
        
     }
 
@@ -93,7 +92,7 @@ class AnimalController {
        
         $animaux = []; 
         foreach ($ligne as $infos){
-            $animaux[] = new Animaux($infos);
+            $animaux[] = $this->instantiateAnimal($infos);
         }
         return $animaux;
     }   
@@ -106,10 +105,10 @@ class AnimalController {
                OR ad.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
         $result = $this->conn->prepare($sql);
         $result->execute();
-        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         $animaux = [];
         foreach ($rows as $row) {
-            $animaux[] = new Animaux($row);
+            $animaux[] = $this->instantiateAnimal($row);
         }
         return $animaux;
     }
@@ -118,8 +117,8 @@ function getAnimalById($id) {
         $result = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
         $result->bindParam(':id', $id);
         $result->execute();
-        $infos = $result->fetch(PDO::FETCH_ASSOC);
-        return new Animaux($infos);
+    $infos = $result->fetch(PDO::FETCH_ASSOC);
+    return $this->instantiateAnimal($infos);
     }
 
     function getAnimalListAdopted(){
@@ -132,8 +131,9 @@ function getAnimalById($id) {
         $result->execute();
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         $animaux = [];
+       
         foreach ($rows as $row) {
-            $animaux[] = new Animaux($row);
+            $animaux[] = $this->instantiateAnimal($row);
         }
         return $animaux;
     }
@@ -148,5 +148,37 @@ function getAnimalById($id) {
         }
     }
 
+    // Factory interne : retourne une instance concrète d'Animaux
+    private function instantiateAnimal(array $data = [])
+    {
+        $type = isset($data['type']) ? strtolower((string)$data['type']) : '';
+        if (strpos($type, 'chien') !== false) {
+            return new Chien($data);
+        }
+        if (strpos($type, 'chat') !== false) {
+            return new Chat($data);
+        }
+
+        // fallback : classe anonyme concrète qui étend Animaux
+        return new class($data) extends Animaux {
+            private string $type = 'Inconnu';
+
+            public function __construct(array $data = [])
+            {
+                parent::__construct($data);
+                if (isset($data['type'])) $this->type = $data['type'];
+            }
+
+            public function getType()
+            {
+                return $this->type;
+            }
+
+            public function afficher()
+            {
+                return $this->getType() . ' : ' . $this->getNom();
+            }
+        };
+    }
 
 }
