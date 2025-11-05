@@ -3,7 +3,8 @@
 $listeRace = [];
 $controller = new AnimalController();
 
-$type = isset($_GET['type']) ? ucfirst(strtolower($_GET['type'])) : '';
+// normaliser le type depuis le GET (ex: "Chat" ou "Chien")
+$type = $_GET['type'];
 
 $listeRace = $controller->getRace();
 if (!is_array($listeRace)) {

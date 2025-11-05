@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../model/animaux.php';
 require_once __DIR__ . '/../model/chien.php';
 require_once __DIR__ . '/../model/chat.php';
+require_once ('model/animaux.php'); 
+
 //session_start();
 
 class AnimalController {
