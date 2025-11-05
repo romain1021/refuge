@@ -1,6 +1,6 @@
 <?php
 $BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
-class User
+abstract class User
 {
     private int $id = 0;
     private string $nom = '';
@@ -9,6 +9,8 @@ class User
     private string $password = '';
     private string $adresse = '';
     private int $statut = 0;
+
+    
 
     public function __construct(array $data = [])
     {
@@ -105,7 +107,7 @@ class User
         return $this;
     }
 
-
+    abstract public function getRole();
 
     
 }
