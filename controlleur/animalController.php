@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../model/animaux.php';
 require_once __DIR__ . '/../model/chien.php';
 require_once __DIR__ . '/../model/chat.php';
-require_once ('model/animaux.php'); 
 
 //session_start();
 
@@ -52,15 +51,17 @@ class AnimalController {
         $result->bindParam(':nom', $nom);
         $result->bindParam(':age', $age);
         $result->bindParam(':description', $description);
-        $result->bindParam(':statut', $statut);    
-        $result->execute();       
+    $result->bindParam(':statut', $statut);    
+    $id = $animal->getId();
+    $result->bindParam(':id', $id);
+    $result->execute();       
         
         $modifie = $this->conn->prepare("SELECT * FROM animaux WHERE id = :id");
         $modifie->bindParam(':id', $animal->getId());
         $modifie->execute();
-        $infos = $modifie->fetch(PDO::FETCH_ASSOC);
+    $infos = $modifie->fetch(PDO::FETCH_ASSOC);
 
-        return new Animaux($infos);
+    return new Animaux($infos);
        
     }
 
@@ -145,6 +146,9 @@ function getAnimalById($id) {
             return Chat::getRaces();
         }
     }
+
+    // (No factory) we instantiate the base Animaux directly so existing code that
+    // used `new Animaux($data)` continues to work.
 
 
 }

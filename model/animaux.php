@@ -1,8 +1,8 @@
 <?php
-$BaseDeDonnees = 'mysql:host=localhost;dbname=refuge", "root", ""';
-abstract class Animaux
+class Animaux
 {
     private int $id = 0;
+    private string $type = '';
     private string $nom = '';
     private string $age = '';
     private string $description = '';
@@ -13,17 +13,19 @@ abstract class Animaux
 
     public function __construct(array $data = [])
     {
-        if (isset($data['id'])) $this->id =$data['id'];
+        if (isset($data['id'])) $this->id = (int)$data['id'];
+        if (isset($data['type'])) $this->type = $data['type'];
         if (isset($data['nom'])) $this->nom = $data['nom'];
         if (isset($data['age'])) $this->age = $data['age'];
         if (isset($data['description'])) $this->description = $data['description'];
-        if (isset($data['statut'])) $this->statut = $data['statut'];
-        if (isset($data['user_id'])) $this->user_id = $data['user_id'];
+        if (isset($data['statut'])) $this->statut = (int)$data['statut'];
+        if (isset($data['user_id'])) $this->user_id = (int)$data['user_id'];
         if (isset($data['user_nom'])) $this->user_nom = $data['user_nom'];
+        if (isset($data['race'])) $this->race = $data['race'];
     }
 
     // id
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -31,6 +33,18 @@ abstract class Animaux
     public function setId(int $id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    // type
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type)
+    {
+        $this->type = $type;
         return $this;
     }
 
@@ -116,6 +130,15 @@ abstract class Animaux
         $this->race = $race;
         return $this;
     }
-    abstract public function getType();
-    abstract public function afficher();
+
+    public function afficher()
+    {
+        return sprintf(
+            "%s : %s, %s ans — %s",
+            $this->getType(),
+            $this->getNom(),
+            $this->getAge(),
+            $this->getDescription()
+        );
+    }
 }

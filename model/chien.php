@@ -21,7 +21,7 @@ class Chien extends Animaux
         return $this->race;
     }
 
-    public function getType(){
+    public function getType(): string {
         return 'Chien';
     }
     
