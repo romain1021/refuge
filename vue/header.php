@@ -16,13 +16,17 @@ echo '<a href="index.php?page=home" class="logo">Refuge Animaux</a>';
 echo '</div>';
 echo '<div class="header-right">';
 if (!empty($_SESSION)) {
-    echo '<button onclick="location.href=\'index.php?page=adoptedAnimals\'" class="btn btn-adopted">Animaux adoptés</button>';
-    echo '<button onclick="location.href=\'index.php?page=home\'" class="btn btn-home">Accueil</button>';
-    
+    echo '<nav class="nav"><ul>';
+    echo '<li><a href="index.php?page=adoptedAnimals" class="btn btn-adopted">Animaux adoptés</a></li>';
+    echo '<li><a href="index.php?page=home" class="btn btn-home">Accueil</a></li>';
+    echo '<li><a href="index.php?page=vueProfilAdoptant&iduser=' . $_SESSION['user_id'] . '" class="btn btn-home">Mon Profil</a></li>';
+
     if (isset($_SESSION['user_statut']) && $_SESSION['user_statut'] == 1) {
-        echo '<button onclick="location.href=\'index.php?page=registerAnimalSelect\'" class="btn btn-register-animal">Enregistrer un animal</button>';
+        echo '<li><a href="index.php?page=registerAnimalSelect" class="btn btn-register-animal">Enregistrer un animal</a></li>';
     }
-    echo '<button onclick="location.href=\'index.php?page=deconnexion\'" class="btn btn-deconnexion">Se déconnecter</button>';
+    echo '<li><a href="index.php?page=deconnexion" class="btn btn-deconnexion">Se déconnecter</a></li>';
+    echo '</ul></nav>';
+
 }
 echo '</div>';
 echo '</header>';
