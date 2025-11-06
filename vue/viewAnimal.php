@@ -6,7 +6,7 @@ $animals = $controller->getAnimalById($_GET['id']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['adopter'])) {
     if (isset($_SESSION['user_id'])) {
-        $controller->Adopter($_SESSION['user_id'], $animals->getId());
+        $controller->Adopter($animals->getId(),$_SESSION['user_id']);
         header('Location: index.php?page=viewAnimal&id=' . $animals->getId());
         exit;
     } else {
