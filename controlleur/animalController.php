@@ -16,6 +16,12 @@ class AnimalController {
         //$this->animal = new Animaux();
     }
 
+    public function getConnection(): PDO {
+        $conn = new PDO('mysql:host=localhost;dbname=refuge;charset=utf8mb4', 'root', '');
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conn;
+    }
+
 
 
     function addAnimal(Animaux $animal) {
@@ -121,6 +127,14 @@ function getAnimalById($id) {
     return $this->instantiateAnimal($infos);
     }
 
+    function Adopter(int $idAnimal, int $idAdoptant): bool {
+        $conn = $this->getConnection();
+        $result = $conn->prepare("INSERT INTO adoptions (idAnimal, idAdoptant, date) VALUES (:idAnimal, :idAdoptant, NOW())");
+        $result->bindParam(':idAnimal', $idAnimal);
+        $result->bindParam(':idAdoptant', $idAdoptant);
+        return $result->execute();
+    }
+
     function getAnimalListAdopted(){
         $sql = "SELECT a.*, u.id AS user_id, u.nom AS user_nom, ad.date AS date_adoption
             FROM animaux a
@@ -139,7 +153,13 @@ function getAnimalById($id) {
     }
 
     function getRace(){
-        $type = $_GET['type'];
+        if (isset($_GET['type'])) {
+            $type = $_GET['type'];
+        } 
+        else {
+            $type = '';
+        }
+
         if($type == 'Chien'){
             return Chien::getRaces();
         }

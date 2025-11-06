@@ -13,6 +13,8 @@
 
     <label>Adresse :</label><br>
     <input type="text" name="adresse" required><br><br>
+    
+    <button type="button" onclick="location.href='index.php?page=connexion'">Retour</button>
 
     <input type="submit" name="register" value="S'inscrire">
 </form>
