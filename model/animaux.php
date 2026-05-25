@@ -21,6 +21,7 @@ abstract class Animaux
         if (isset($data['statut'])) $this->statut = $data['statut'];
         if (isset($data['user_id'])) $this->user_id = $data['user_id'];
         if (isset($data['user_nom'])) $this->user_nom = $data['user_nom'];
+        if (isset($data['race'])) $this->race = $data['race'];
     }
 
     // id

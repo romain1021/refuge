@@ -11,6 +11,7 @@ if (!empty($animaux)) {
         echo '<p><strong>Type :</strong> ' . htmlspecialchars($animal->getType()) . '</p>';
         echo '<p><strong>Nom :</strong> ' . htmlspecialchars($animal->getNom()) . '</p>';
         echo '<p><strong>Âge :</strong> ' . htmlspecialchars($animal->getAge()) . '</p>';
+        echo '<p><strong>Race :</strong> ' . htmlspecialchars($animal->getRace()) . '</p>';
         echo '<p><strong>Description :</strong> ' . htmlspecialchars($animal->getDescription()) . '</p>';
         echo '<p><strong>Statut :</strong> ' . htmlspecialchars($statut) . '</p>';
         if ($statut === 'Adopté') {
